@@ -1,5 +1,6 @@
 export default class RCApiService {
     _apiBase = 'https://restcountries.eu';
+    _params = '?fields=name;flag;callingCodes;alpha3Code;capital;population;subregion;region;currencies;languages';
 
     getResource = async url => {
         const res = await fetch(`${this._apiBase}${url}`);
@@ -11,8 +12,28 @@ export default class RCApiService {
         return res.json();
     };
 
-    getCountry = async id => {
-        const [country] = await this.getResource(`/rest/v2/callingcode/${id}?fields=name;flag;callingCodes;alpha3Code;capital;population;subregion;currencies`);
+    getRandomCountry = async id => {
+        const [country] = await this.getResource(`/rest/v2/callingcode/${id}${this._params}`);
+        return RCApiService._transformCountry(country);
+    };
+
+    getCountriesByRegion = async region => {
+        const result = await this.getResource(`/rest/v2/region/${region}${this._params}`);
+        return result.map(RCApiService._transformCountry);
+    };
+
+    getCountriesByLanguage = async language => {
+        const result = await this.getResource(`/rest/v2/lang/${language}${this._params}`);
+        return result.map(RCApiService._transformCountry);
+    };
+
+    getFavoritesCountries = async countriesList => {
+        const result = await this.getResource(`/rest/v2/alpha?codes=${countriesList}`);
+        return result.map(RCApiService._transformCountry);
+    };
+
+    getCountry = async countryName => {
+        const [country] = await this.getResource(`/rest/v2/name/${countryName}${this._params}`);
         return RCApiService._transformCountry(country);
     };
 
@@ -25,7 +46,9 @@ export default class RCApiService {
             capital: country.capital,
             population: country.population,
             subregion: country.subregion,
-            currencies: country.currencies
+            region: country.region,
+            currencies: country.currencies,
+            languageName: country.languages[0].name
         }
     };
 }

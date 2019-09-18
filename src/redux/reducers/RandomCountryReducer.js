@@ -11,7 +11,7 @@ export default function randomCountryReducer(state = initialState, action) {
         case RANDOM_COUNTRY_LOADED:
             return {
                 ...state,
-                country: action.country,
+                country: action.payload,
                 loading: false,
                 error: false
             };
