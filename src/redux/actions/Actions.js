@@ -11,7 +11,8 @@ import {
     REMOVE_COUNTRY_FROM_FAVORITES,
     FETCH_COUNTRY_START,
     FETCH_COUNTRY_SUCCESS,
-    FETCH_COUNTRY_ERROR
+    FETCH_COUNTRY_ERROR,
+    SET_SELECTED_COUNTRIES
 } from '../actions/ActionTypes';
 
 const rcApiService = new RCApiService();
@@ -76,9 +77,18 @@ export function fetchCountriesStart() {
 }
 
 export function fetchCountriesSuccess(countries) {
+    const countryFilters = [];
+
+    countries.forEach(country => {
+        if (countryFilters.indexOf(country.subregion) === -1 ) {
+            countryFilters.push(country.subregion);
+        }
+    });
+
     return {
         type: FETCH_COUNTRIES_SUCCESS,
-        payload: countries
+        payload: countries,
+        countryFilters: countryFilters
     }
 }
 
@@ -145,5 +155,22 @@ export function fetchCountrySuccess(country) {
 export function fetchCountryError(err) {
     return {
         type: FETCH_COUNTRY_ERROR
+    }
+}
+
+export function filterCountryBySubregion(filterName) {
+    return (dispatch, getState) => {
+        const state = getState().countries;
+        const filteredCountries = state.countries.filter((country) => country.subregion === filterName);
+
+        dispatch(setSelectedCountryies(filterName, filteredCountries));
+    }
+}
+
+export function setSelectedCountryies(filterName, countries) {
+    return {
+        type: SET_SELECTED_COUNTRIES,
+        payload: countries,
+        filterName: filterName
     }
 }

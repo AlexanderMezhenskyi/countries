@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import connect from "react-redux/es/connect/connect";
 import ItemList from '../ItemList/ItemList';
 import ItemDetails from '../ItemDetails/ItemDetails';
+import ItemSelect from '../ItemSelect/ItemSelect';
 import ContentRow from '../ContentRow/ContentRow';
 import {fetchCountriesByLanguage, resetCountriesData} from "../../redux/actions/Actions";
 
@@ -21,6 +22,7 @@ class CountriesByLanguagePage extends Component {
 
         return (
             <ContentRow
+                top={<ItemSelect/>}
                 leftSide={<ItemList onItemSelected={(name) => history.push(name)} />}
                 rightSide={<ItemDetails itemName={name} />}
             />
@@ -29,11 +31,7 @@ class CountriesByLanguagePage extends Component {
 }
 
 function mapStateToProps(state) {
-    return {
-        countries: state.countries.countries,
-        loading: state.countries.loading,
-        error: state.countries.error
-    };
+    return state;
 }
 
 function mapDispatchToProps(dispatch) {

@@ -7,15 +7,20 @@ import {
     REMOVE_COUNTRY_FROM_FAVORITES,
     FETCH_COUNTRY_START,
     FETCH_COUNTRY_SUCCESS,
-    FETCH_COUNTRY_ERROR
+    FETCH_COUNTRY_ERROR,
+    SET_SELECTED_COUNTRIES
 } from '../actions/ActionTypes';
 
 const initialState = {
-    loading: true,
+    loadingCountries: true,
+    loadingCountry: true,
     error: false,
     country: null,
     countries: [],
-    favoriteCountries: []
+    filteredCountries: [],
+    favoriteCountries: [],
+    countryFilters: [],
+    selectedCountryFilter: null
 };
 
 export default function countriesReducer(state = initialState, action) {
@@ -23,29 +28,35 @@ export default function countriesReducer(state = initialState, action) {
         case FETCH_COUNTRIES_START:
             return {
                 ...state,
-                loading: true,
+                loadingCountries: true,
                 error: false
             };
         case FETCH_COUNTRIES_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                loadingCountries: false,
                 error: false,
-                countries: action.payload
+                countries: action.payload,
+                filteredCountries: action.payload,
+                countryFilters: action.countryFilters
             };
         case FETCH_COUNTRIES_ERROR:
             return {
                 ...state,
-                loading: false,
+                loadingCountries: false,
                 error: true
             };
         case RESET_COUNTRIES_DATA:
             return {
                 ...state,
-                loading: true,
+                loadingCountries: true,
+                loadingCountry: true,
                 error: false,
                 country: null,
-                countries: []
+                countries: [],
+                filteredCountries: [],
+                countryFilters: [],
+                selectedCountryFilter: null
             };
         case ADD_COUNTRY_TO_FAVORITES:
             return {
@@ -65,21 +76,27 @@ export default function countriesReducer(state = initialState, action) {
         case FETCH_COUNTRY_START:
             return {
                 ...state,
-                loading: true,
+                loadingCountry: true,
                 error: false
             };
         case FETCH_COUNTRY_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                loadingCountry: false,
                 error: false,
                 country: action.payload
             };
         case FETCH_COUNTRY_ERROR:
             return {
                 ...state,
-                loading: false,
+                loadingCountry: false,
                 error: true
+            };
+        case SET_SELECTED_COUNTRIES:
+            return {
+                ...state,
+                selectedCountryFilter: action.filterName,
+                filteredCountries: action.payload
             };
         default:
             return state;

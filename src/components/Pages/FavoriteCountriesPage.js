@@ -11,6 +11,13 @@ class FavoriteCountriesPage extends Component {
         this.props.fetchFavoritesCountries(favoritesCountriesList);
     }
 
+    componentDidUpdate(prevState) {
+        if (prevState.favoriteCountries.length !== this.props.favoriteCountries.length) {
+            const favoritesCountriesList = this.props.favoriteCountries.join(';');
+            this.props.fetchFavoritesCountries(favoritesCountriesList);
+        }
+    }
+
     componentWillUnmount() {
         this.props.resetCountriesData();
     }
@@ -38,9 +45,6 @@ class FavoriteCountriesPage extends Component {
 
 function mapStateToProps(state) {
     return {
-        countries: state.countries.countries,
-        loading: state.countries.loading,
-        error: state.countries.error,
         favoriteCountries: state.countries.favoriteCountries,
     };
 }

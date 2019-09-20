@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import connect from "react-redux/es/connect/connect";
 import ItemList from '../ItemList/ItemList';
 import ItemDetails from '../ItemDetails/ItemDetails';
+import ItemFilters from "../ItemFilters/ItemFilters";
 import ContentRow from '../ContentRow/ContentRow';
 import {fetchCountriesByRegion, resetCountriesData} from "../../redux/actions/Actions";
 
@@ -21,6 +22,7 @@ class AsiaPage extends Component {
 
         return (
             <ContentRow
+                top={<ItemFilters/>}
                 leftSide={<ItemList onItemSelected={(name) => history.push(name)} />}
                 rightSide={<ItemDetails itemName={name} />}
             />
@@ -29,11 +31,7 @@ class AsiaPage extends Component {
 }
 
 function mapStateToProps(state) {
-    return {
-        countries: state.countries.countries,
-        loading: state.countries.loading,
-        error: state.countries.error
-    };
+    return state;
 }
 
 function mapDispatchToProps(dispatch) {

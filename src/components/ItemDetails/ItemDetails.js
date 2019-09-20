@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import connect from "react-redux/es/connect/connect";
+import Spinner from "../Spinner/Spinner";
 import {fetchCountry} from "../../redux/actions/Actions";
 import './ItemDetails.scss';
 
@@ -23,10 +24,14 @@ class ItemDetails extends Component {
     }
 
     render() {
-        const {country} = this.props;
+        const {country, loading} = this.props;
 
         if (!country) {
-            return <span>Select a country from a list</span>;
+            return <span className="select-country-text">Select a country from a list</span>;
+        }
+
+        if (loading) {
+            return <Spinner />;
         }
 
         const {name, capital, population, subregion, region, currencies, flag} = country;
@@ -74,7 +79,7 @@ class ItemDetails extends Component {
 function mapStateToProps(state) {
     return {
         country: state.countries.country,
-        loading: state.countries.loading,
+        loading: state.countries.loadingCountry,
         error: state.countries.error
     };
 }
