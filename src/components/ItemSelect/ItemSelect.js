@@ -1,38 +1,28 @@
 import React, {Component} from 'react';
 import connect from "react-redux/es/connect/connect";
-import {filterCountryBySubregion} from "../../redux/actions/Actions";
+import {filterCountryByLanguage} from "../../redux/actions/Actions";
 import './ItemSelect.scss';
 
 class ItemSelect extends Component{
     render() {
-        // const {countryFilters, selectedCountryFilter, filterCountryBySubregion} = this.props;
-        //
-        // const filters = countryFilters.map((filter) => {
-        //     const cls = filter === selectedCountryFilter ? 'btn-info' : 'btn-outline-info';
-        //
-        //     return (
-        //         <button
-        //             key={filter}
-        //             type="button"
-        //             value={filter}
-        //             className={`btn ${cls}`}
-        //             onClick={() => filterCountryBySubregion(filter)}
-        //         >
-        //             {filter}
-        //         </button>
-        //     );
-        // });
+        const {languageFilters, selectedlanguageFilter, filterCountryByLanguage} = this.props;
+
+        const filters = languageFilters.map((filter, index) => {
+            return (
+                <option
+                    key={filter}
+                    value={filter}
+                >
+                    {filter}
+                </option>
+            );
+        });
 
         return (
             <form>
                 <div className="form-group w-50 mb-5">
-                    <label htmlFor="item-select">Select Language</label>
-                    <select className="form-control" id="item-select">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                    <select className="form-control" id="item-select" value={selectedlanguageFilter} onChange={(event) => filterCountryByLanguage(event.target.value)}>
+                        {filters}
                     </select>
                 </div>
             </form>
@@ -41,12 +31,15 @@ class ItemSelect extends Component{
 }
 
 function mapStateToProps(state) {
-    return state;
+    return {
+        languageFilters: state.countries.languageFilters,
+        selectedlanguageFilter: state.countries.selectedlanguageFilter
+    };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        filterCountryBySubregion: (filterName) => dispatch(filterCountryBySubregion(filterName))
+        filterCountryByLanguage: (filterName) => dispatch(filterCountryByLanguage(filterName))
     };
 }
 

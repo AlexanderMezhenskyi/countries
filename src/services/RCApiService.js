@@ -22,9 +22,9 @@ export default class RCApiService {
         return result.map(RCApiService._transformCountry);
     };
 
-    getCountriesByLanguage = async language => {
-        const result = await this.getResource(`/rest/v2/lang/${language}${this._params}`);
-        return result.map(RCApiService._transformCountry);
+    getCountriesByLanguage = async () => {
+        const result = await this.getResource(`/rest/v2/all${this._params}`);
+        return result;
     };
 
     getFavoritesCountries = async countriesList => {

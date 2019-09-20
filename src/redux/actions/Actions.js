@@ -12,7 +12,8 @@ import {
     FETCH_COUNTRY_START,
     FETCH_COUNTRY_SUCCESS,
     FETCH_COUNTRY_ERROR,
-    SET_SELECTED_COUNTRIES
+    SET_SELECTED_COUNTRIES,
+    FETCH_COUNTRIES_BY_LANGUAGE_SUCCESS
 } from '../actions/ActionTypes';
 
 const rcApiService = new RCApiService();
@@ -59,14 +60,38 @@ export function fetchCountriesByRegion(region) {
     }
 }
 
-export function fetchCountriesByLanguage(language) {
+export function fetchCountriesByLanguage() {
     return async dispatch => {
         dispatch(fetchCountriesStart());
 
         rcApiService
-            .getCountriesByLanguage(language)
-            .then(res => dispatch(fetchCountriesSuccess(res)))
+            .getCountriesByLanguage()
+            .then(res => dispatch(fetchCountriesByLanguageSuccess(res)))
             .catch(err => dispatch(fetchCountriesError(err)));
+    }
+}
+
+export function fetchCountriesByLanguageSuccess(countries) {
+    const languageFilters = [];
+
+    countries.forEach(country => {
+        country.languages.forEach((language) => {
+            if (languageFilters.indexOf(language.name) === -1 ) {
+                languageFilters.push(language.name)
+            }
+        });
+    });
+
+    return {
+        type: FETCH_COUNTRIES_BY_LANGUAGE_SUCCESS,
+        payload: countries,
+        languageFilters: languageFilters
+    }
+}
+
+export function filterCountryByLanguage(languageName) {
+    return {
+        type: 'filterCountryByLanguage'
     }
 }
 
