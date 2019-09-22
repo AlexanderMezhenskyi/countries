@@ -7,20 +7,25 @@ import {fetchFavoritesCountries, resetCountriesData} from "../../redux/actions/A
 
 class FavoriteCountriesPage extends Component {
     componentDidMount() {
-        const favoritesCountriesList = this.props.favoriteCountries.join(';');
-        this.props.fetchFavoritesCountries(favoritesCountriesList);
+        if (this.props.favoriteCountries.length) {
+            this.fetchCountries();
+        }
     }
 
     componentDidUpdate(prevState) {
         if (prevState.favoriteCountries.length !== this.props.favoriteCountries.length) {
-            const favoritesCountriesList = this.props.favoriteCountries.join(';');
-            this.props.fetchFavoritesCountries(favoritesCountriesList);
+            this.fetchCountries();
         }
     }
 
     componentWillUnmount() {
         this.props.resetCountriesData();
     }
+
+    fetchCountries = () => {
+        const favoritesCountriesList = this.props.favoriteCountries.join(';');
+        this.props.fetchFavoritesCountries(favoritesCountriesList);
+    };
 
     render() {
         if (!this.props.favoriteCountries.length) {
@@ -43,9 +48,9 @@ class FavoriteCountriesPage extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps() {
     return {
-        favoriteCountries: state.countries.favoriteCountries,
+        favoriteCountries: JSON.parse(localStorage.getItem('favoriteCountries'))
     };
 }
 

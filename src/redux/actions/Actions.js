@@ -7,8 +7,6 @@ import {
     FETCH_COUNTRIES_SUCCESS,
     FETCH_COUNTRIES_ERROR,
     RESET_COUNTRIES_DATA,
-    ADD_COUNTRY_TO_FAVORITES,
-    REMOVE_COUNTRY_FROM_FAVORITES,
     FETCH_COUNTRY_START,
     FETCH_COUNTRY_SUCCESS,
     FETCH_COUNTRY_ERROR,
@@ -129,19 +127,6 @@ export function resetCountriesData() {
     }
 }
 
-export function addCountryToFavorites(countryCode) {
-    return {
-        type: ADD_COUNTRY_TO_FAVORITES,
-        payload: countryCode
-    }
-}
-
-export function removeCountryFromFavorites(countryCode) {
-    return {
-        type: REMOVE_COUNTRY_FROM_FAVORITES,
-        payload: countryCode
-    }
-}
 export function fetchFavoritesCountries(countriesList) {
     return async dispatch => {
         dispatch(fetchCountriesStart());

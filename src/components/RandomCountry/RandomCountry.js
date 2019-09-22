@@ -8,7 +8,7 @@ import './RandomCountry.scss';
 class RandomCountry extends Component {
     componentDidMount() {
         this.props.fetchRandomCountry();
-        this.fetchInterval = setInterval(this.props.fetchRandomCountry, 3000);
+        this.fetchInterval = setInterval(this.props.fetchRandomCountry, 5000);
     }
 
     componentWillUnmount() {

@@ -3,8 +3,6 @@ import {
     FETCH_COUNTRIES_SUCCESS,
     FETCH_COUNTRIES_ERROR,
     RESET_COUNTRIES_DATA,
-    ADD_COUNTRY_TO_FAVORITES,
-    REMOVE_COUNTRY_FROM_FAVORITES,
     FETCH_COUNTRY_START,
     FETCH_COUNTRY_SUCCESS,
     FETCH_COUNTRY_ERROR,
@@ -19,7 +17,6 @@ const initialState = {
     country: null,
     countries: [],
     filteredCountries: [],
-    favoriteCountries: [],
     countryFilters: [],
     selectedCountryFilter: null,
     languageFilters: [],
@@ -61,21 +58,6 @@ export default function countriesReducer(state = initialState, action) {
                 countryFilters: [],
                 selectedCountryFilter: null,
                 languageFilters: []
-            };
-        case ADD_COUNTRY_TO_FAVORITES:
-            return {
-                ...state,
-                favoriteCountries: [...state.favoriteCountries, action.payload]
-            };
-        case REMOVE_COUNTRY_FROM_FAVORITES:
-            const favoriteCountriesArr = [...state.favoriteCountries],
-                  index = favoriteCountriesArr.indexOf(action.payload);
-
-            favoriteCountriesArr.splice(index, 1);
-
-            return {
-                ...state,
-                favoriteCountries: favoriteCountriesArr
             };
         case FETCH_COUNTRY_START:
             return {

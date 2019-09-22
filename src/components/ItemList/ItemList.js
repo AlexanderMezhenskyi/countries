@@ -6,11 +6,30 @@ import Button from "react-bootstrap/Button";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import {withRouter} from 'react-router-dom';
 import Spinner from "../Spinner/Spinner";
-import {addCountryToFavorites, removeCountryFromFavorites} from "../../redux/actions/Actions";
 import './ItemList.scss';
 
 const ItemList = (props) => {
-    const {countries, loading, onItemSelected, addCountryToFavorites, removeCountryFromFavorites, location} = props;
+    const {countries, loading, onItemSelected, location} = props;
+
+    const addCountryToFavorites = (countryCode) => {
+        const localStorageData = JSON.parse(localStorage.getItem('favoriteCountries'));
+
+        if (localStorageData === null) {
+            localStorage.setItem('favoriteCountries', JSON.stringify([countryCode]));
+        } else {
+            localStorageData.push(countryCode);
+            localStorage.setItem('favoriteCountries', JSON.stringify(localStorageData));
+        }
+    };
+
+    const removeCountryFromFavorites = (countryCode) => {
+        const localStorageData = JSON.parse(localStorage.getItem('favoriteCountries')),
+            index = localStorageData.indexOf(countryCode);
+
+        localStorageData.splice(index, 1);
+
+        localStorage.setItem('favoriteCountries', JSON.stringify(localStorageData));
+    };
 
     const items = countries.map((country, index) => {
         const {name, capital, languageName, alpha3Code} = country;
@@ -57,11 +76,4 @@ function mapStateToProps(state) {
     };
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        addCountryToFavorites: (countryCode) => dispatch(addCountryToFavorites(countryCode)),
-        removeCountryFromFavorites: (countryCode) => dispatch(removeCountryFromFavorites(countryCode))
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ItemList));
+export default connect(mapStateToProps)(withRouter(ItemList));

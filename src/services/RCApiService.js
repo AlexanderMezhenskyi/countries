@@ -9,6 +9,10 @@ export default class RCApiService {
             throw new Error(`Could not fetch ${url}, received ${res.status}`)
         }
 
+        if (JSON.parse(localStorage.getItem('favoriteCountries')) === null) {
+            localStorage.setItem('favoriteCountries', JSON.stringify([]));
+        }
+
         return res.json();
     };
 
