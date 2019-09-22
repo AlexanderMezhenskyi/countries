@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/countries/static/css/main.40c4c0fa.chunk.css",
-    "main.js": "/countries/static/js/main.f3c7e8e3.chunk.js",
-    "main.js.map": "/countries/static/js/main.f3c7e8e3.chunk.js.map",
+    "main.css": "/countries/static/css/main.876cf16e.chunk.css",
+    "main.js": "/countries/static/js/main.91bc88a4.chunk.js",
+    "main.js.map": "/countries/static/js/main.91bc88a4.chunk.js.map",
     "runtime~main.js": "/countries/static/js/runtime~main.1d433b0d.js",
     "runtime~main.js.map": "/countries/static/js/runtime~main.1d433b0d.js.map",
-    "static/js/2.26e762b2.chunk.js": "/countries/static/js/2.26e762b2.chunk.js",
-    "static/js/2.26e762b2.chunk.js.map": "/countries/static/js/2.26e762b2.chunk.js.map",
+    "static/js/2.667f6f61.chunk.js": "/countries/static/js/2.667f6f61.chunk.js",
+    "static/js/2.667f6f61.chunk.js.map": "/countries/static/js/2.667f6f61.chunk.js.map",
     "index.html": "/countries/index.html",
-    "precache-manifest.20679141b7fb3ae8ae1ac4f1ab83d17a.js": "/countries/precache-manifest.20679141b7fb3ae8ae1ac4f1ab83d17a.js",
+    "precache-manifest.863511b491b068724419865dd6845ca3.js": "/countries/precache-manifest.863511b491b068724419865dd6845ca3.js",
     "service-worker.js": "/countries/service-worker.js",
-    "static/css/main.40c4c0fa.chunk.css.map": "/countries/static/css/main.40c4c0fa.chunk.css.map",
+    "static/css/main.876cf16e.chunk.css.map": "/countries/static/css/main.876cf16e.chunk.css.map",
     "static/media/earth.png": "/countries/static/media/earth.356a221d.png"
   }
 }
