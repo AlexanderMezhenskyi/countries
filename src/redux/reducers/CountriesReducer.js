@@ -7,7 +7,8 @@ import {
     FETCH_COUNTRY_SUCCESS,
     FETCH_COUNTRY_ERROR,
     SET_SELECTED_COUNTRIES,
-    FETCH_COUNTRIES_BY_LANGUAGE_SUCCESS
+    FETCH_COUNTRIES_BY_LANGUAGE_SUCCESS,
+    FILTER_COUNTRY_BY_LANGUAGE_SUCCESS
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -20,7 +21,7 @@ const initialState = {
     countryFilters: [],
     selectedCountryFilter: null,
     languageFilters: [],
-    selectedlanguageFilter: 'English'
+    selectedlanguageFilter: ''
 };
 
 export default function countriesReducer(state = initialState, action) {
@@ -29,6 +30,7 @@ export default function countriesReducer(state = initialState, action) {
             return {
                 ...state,
                 loadingCountries: true,
+                country: null,
                 error: false
             };
         case FETCH_COUNTRIES_SUCCESS:
@@ -81,6 +83,8 @@ export default function countriesReducer(state = initialState, action) {
         case SET_SELECTED_COUNTRIES:
             return {
                 ...state,
+                loadingCountries: false,
+                loadingCountry: false,
                 selectedCountryFilter: action.filterName,
                 filteredCountries: action.payload
             };
@@ -93,6 +97,15 @@ export default function countriesReducer(state = initialState, action) {
                 filteredCountries: action.payload,
                 languageFilters: action.languageFilters
             };
+            case FILTER_COUNTRY_BY_LANGUAGE_SUCCESS:
+                return {
+                    ...state,
+                    loadingCountries: false,
+                    error: false,
+                    countries: action.payload,
+                    filteredCountries: action.payload,
+                    selectedlanguageFilter: action.selectedlanguageFilter
+                };
         default:
             return state;
     }

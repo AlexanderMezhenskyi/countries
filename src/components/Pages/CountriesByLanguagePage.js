@@ -8,8 +8,7 @@ import {fetchCountriesByLanguage, resetCountriesData} from "../../redux/actions/
 
 class CountriesByLanguagePage extends Component {
     componentDidMount() {
-        const language = 'en';
-        this.props.fetchCountriesByLanguage(language);
+        this.props.fetchCountriesByLanguage();
     }
 
     componentWillUnmount() {

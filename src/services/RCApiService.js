@@ -27,8 +27,11 @@ export default class RCApiService {
     };
 
     getCountriesByLanguage = async () => {
-        const result = await this.getResource(`/rest/v2/all${this._params}`);
-        return result;
+        return await this.getResource(`/rest/v2/all${this._params}`);
+    };
+
+    getCountriesByLanguageCode = async languageCode => {
+        return await this.getResource(`/rest/v2/lang/${languageCode}${this._params}`);
     };
 
     getFavoritesCountries = async countriesList => {

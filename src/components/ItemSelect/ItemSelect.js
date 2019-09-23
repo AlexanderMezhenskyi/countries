@@ -7,7 +7,7 @@ class ItemSelect extends Component{
     render() {
         const {languageFilters, selectedlanguageFilter, filterCountryByLanguage} = this.props;
 
-        const filters = languageFilters.map((filter, index) => {
+        const filters = languageFilters.map(filter => {
             return (
                 <option
                     key={filter}
@@ -21,7 +21,13 @@ class ItemSelect extends Component{
         return (
             <form>
                 <div className="form-group w-50 mb-5">
-                    <select className="form-control" id="item-select" value={selectedlanguageFilter} onChange={(event) => filterCountryByLanguage(event.target.value)}>
+                    <select
+                        className="form-control"
+                        id="item-select"
+                        value={selectedlanguageFilter}
+                        onChange={(event) => filterCountryByLanguage(event.target.value)}
+                    >
+                        <option value="" disabled>Select one of the following...</option>
                         {filters}
                     </select>
                 </div>
