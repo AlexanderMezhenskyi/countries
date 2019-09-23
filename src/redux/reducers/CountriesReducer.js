@@ -59,7 +59,8 @@ export default function countriesReducer(state = initialState, action) {
                 filteredCountries: [],
                 countryFilters: [],
                 selectedCountryFilter: null,
-                languageFilters: []
+                languageFilters: [],
+                selectedlanguageFilter: ''
             };
         case FETCH_COUNTRY_START:
             return {
